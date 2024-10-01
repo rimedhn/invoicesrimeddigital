@@ -101,9 +101,8 @@
       <table style="width: 100%">
         <tr>
           <th colspan="4" style="width: 10%">
-            <a id="logo" href="logo">Ir a la página</a>
-            <a id="logo" href="#">Ir a la página</a>
             <img src="https://drive.google.com/thumbnail?id=1rgy_oqRvTsUyia_ZfIMt7vSnZ1lgUuWq" width="100%" alt="Mi imagen" class="mi-imagen"/a>
+            <img id="logo" alt="Imagen dinámica">
           </th>
           <th colspan="4" style="width: 40%; text-align: left">
             <b style="font-size: 50px" id="empresa"></b><br />
@@ -329,6 +328,9 @@
       }
 
       function fillData() {
+        let urlImagen = "logo";
+        let imagen = document.getElementById("logo");
+        imagen.src = logo;
         document.getElementById("logo").textContent =
           getQueryParam("logo");
         document.getElementById("empresa").textContent =
