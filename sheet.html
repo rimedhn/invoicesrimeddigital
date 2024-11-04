@@ -326,8 +326,7 @@
         return urlParams.get(param);
       }
 
-      function fillData() {
-        imagen.src = urlImagen;        
+      function fillData() {             
         document.getElementById("empresa").textContent =
           getQueryParam("empresa");
         document.getElementById("razon").textContent = getQueryParam("razon");
