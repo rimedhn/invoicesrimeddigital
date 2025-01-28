@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thermal POS Receipt</title>
+    <style>
+      #thermal-pos {
+        box-shadow: 0 0 0mm #eee;
+        margin: 0mm;
+        max-width: 80mm;
+        line-height: 4mm;
+      }
+
+      #thermal-pos h2 {
+        font-size: 4mm;
+        line-height: 13px;
+      }
+
+      #thermal-pos .label {
+        text-align: center;
+        font-size: 5mm;
+        line-height: 1.3;
+      }
+      #thermal-pos .informasi {
+        vertical-align: text-top;
+        text-align: left;
+        max-width: 45mm;
+        word-wrap: break-word;
+      }
+
+      #thermal-pos .listitem {
+        font-size: 4mm;
+        height: 0mm;
+        text-align: center;
+      }
+      #thermal-pos table {
+        width: 100%;
+        table-layout: fixed;
+      }
+
+      #thermal-pos .item {
+        max-width: 80mm;
+        font-size: 4.2mm;
+        word-wrap: break-word;
+        width: 100%;
+      }
+      #thermal-pos .amount {
+        vertical-align: center;
+        text-align: right;
+        font-size: 4.2mm;
+      }
+
+      #thermal-pos .price {
+        vertical-align: center;
+        text-align: center;
+        font-size: 4.2mm;
+      }
+
+      #thermal-pos .desc {
+        vertical-align: center;
+        text-align: center;
+        font-size: 4.2mm;
+      }
+
+      #thermal-pos .qty {
+        vertical-align: center;
+        text-align: center;
+        font-size: 4.2mm;
+      }
+
+      #thermal-pos .Isv {
+        vertical-align: center;
+        text-align: right;
+        font-size: 4.2mm;
+      }
+      #thermal-pos .bawah {
+        margin-top: 5mm;
+        text-align: center;
+        height: 90px;
+        page-break-after: auto;
+      }
+      #thermal-pos .detail1 {
+        margin-top: 5mm;
+        text-align: right;
+        page-break-after: auto;
+      }
+
+      #thermal-pos .detail {
+        margin-top: 5mm;
+        text-align: left;
+        page-break-after: auto;
+      }
+
+      #all {
+        font-family: Arial, sans-serif;
+      }
+
+      .mi-imagen {
+        width: 150px;
+        height: 150px;
+      }
+
+      #thermal-pos .listitem td {
+        width: 20%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      #thermal-pos .descriptions {
+        width: 100%;
+        text-align: left;
+        font-weight: bold;
+        padding-top: 1px;
+        padding-bottom: 1px;
+      }
+
+      /* Alineación específica para cada columna */
+      #thermal-pos .listitem .qty {
+        width: 15%;
+        text-align: left;
+      }
+
+      #thermal-pos .listitem .Price,
+      #thermal-pos .listitem .Desc,
+      #thermal-pos .listitem .Isv {
+        width: 20%;
+        text-align: center;
+      }
+
+      #thermal-pos .listitem .Amount {
+        width: 25%;
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body id="all">
+    <div id="thermal-pos">
+      <div class="label">
+        <img src="/js/logoindex.jpeg" alt="Mi imagen" class="mi-imagen" /><br />
+        <b id="empresa"></b><br />
+        <b id="razon"></b>
+        <div class="label">
+          <b>RTN: <span id="rtn"></span></b>
+          <br />
+        </div>
+        <div class="label">
+          <b>Direccion: <span id="direccion"></span></b>
+          <br />
+        </div>
+        <div class="label">
+          <b>Telefono: <span id="telefono"></span></b>
+          <br />
+        </div>
+        <div class="label">
+          <b id="email"></b>
+          <br />
+        </div>
+      </div>
+
+      <div align="center">------------------------------------------------</div>
+      <div align="center" id="tipodoc"></div>
+      <div align="center">------------------------------------------------</div>
+
+      <table>
+        <tr>
+          <td class="informasi">Factura:</td>
+          <td class="informasi" id="factura"></td>
+        </tr>
+        <tr>
+          <td class="informasi">Fecha:</td>
+          <td class="informasi" id="date"></td>
+        </tr>
+        <tr>
+          <td class="informasi">CAI:</td>
+          <td class="informasi" id="cai"></td>
+        </tr>
+        <tr>
+          <td class="informasi">Rango:</td>
+          <td class="informasi" id="rango"></td>
+        </tr>
+        <tr>
+          <td class="informasi">Limite:</td>
+          <td class="informasi" id="limite"></td>
+        </tr>
+      </table>
+      <div align="center">------------------------------------------------</div>
+      <div align="center">Datos del cliente</div>
+      <div align="center">------------------------------------------------</div>
+      <table>
+        <tr>
+          <td class="informasi">Cliente:</td>
+          <td class="informasi" id="cliente"></td>
+        </tr>
+        <tr>
+          <td class="informasi">RTN:</td>
+          <td class="informasi" id="rtncliente"></td>
+        </tr>
+        <tr>
+          <td class="informasi">Direccion:</td>
+          <td class="informasi" id="direccioncliente"></td>
+        </tr>
+        <tr>
+          <td class="informasi">Telefono:</td>
+          <td class="informasi" id="telefonocliente"></td>
+        </tr>
+      </table>
+      <div align="center">------------------------------------------------</div>
+      <div align="center">Condiciones de pago</div>
+      <div align="center">------------------------------------------------</div>
+      <table>
+        <tr>
+          <td class="informasi">Forma de pago:</td>
+          <td class="informasi" id="formapago"></td>
+        </tr>
+        <tr>
+          <td class="informasi">Plazo en días:</td>
+          <td class="informasi" id="plazo"></td>
+        </tr>
+        <tr>
+          <td class="informasi">Cantida de pagos:</td>
+          <td class="informasi" id="pagos"></td>
+        </tr>
+        <tr>
+          <td class="informasi">Cuota por pago:</td>
+          <td class="informasi">L<span id="cuota"></span></td>
+        </tr>
+      </table>
+      <div align="center">------------------------------------------------</div>
+      <div align="center">Datos del cliente exonerado</div>
+      <div align="center">------------------------------------------------</div>
+
+      <table>
+        <tr>
+          <td class="informasi">O. C. Exenta:</td>
+          <td class="informasi" id="ocexe"></td>
+        </tr>
+        <tr>
+          <td class="informasi">O. C. Exonerada:</td>
+          <td class="informasi" id="ocexo"></td>
+        </tr>
+        <tr>
+          <td class="informasi">No. Reg. SAG:</td>
+          <td class="informasi" id="nosag"></td>
+        </tr>
+      </table>
+      <div align="center">------------------------------------------------</div>
+      <div align="center">Detalle</div>
+      <div align="center">------------------------------------------------</div>
+
+      <table>
+        <tr class="listitem">
+          <td>
+            <h2>Cant</h2>
+          </td>
+          <td>
+            <h2>Precio</h2>
+          </td>
+          <td>
+            <h2>Desc.</h2>
+          </td>
+          <td>
+            <h2>Isv</h2>
+          </td>
+          <td>
+            <h2>Monto</h2>
+          </td>
+        </tr>
+      </table>
+      <div align="center">------------------------------------------------</div>
+
+      <table id="productTable">
+        <!-- Product rows will be inserted here -->
+      </table>
+
+      <div align="center">------------------------------------------------</div>
+      <table>
+        <tr>
+          <td class="detail">Subtotal</td>
+          <td class="detail1">L<span id="subtotal"></span></td>
+        </tr>
+        <tr>
+          <td class="detail">Descuento</td>
+          <td class="detail1">L<span id="descuento"></span></td>
+        </tr>
+        <tr>
+          <td class="detail">Subtotal exento:</td>
+          <td class="detail1">L<span id="subtotalexe"></span></td>
+        </tr>
+        <tr>
+          <td class="detail">Subtotal exonerado:</td>
+          <td class="detail1">L<span id="subtotalexo"></span></td>
+        </tr>
+        <tr>
+          <td class="detail">Subtotal 15%:</td>
+          <td class="detail1">L<span id="subtotalisv15"></span></td>
+        </tr>
+        <tr>
+          <td class="detail">Subtotal 18%:</td>
+          <td class="detail1">L<span id="subtotalisv18"></span></td>
+        </tr>
+        <tr>
+          <td class="detail">Impuesto 15%:</td>
+          <td class="detail1">L<span id="isv15"></span></td>
+        </tr>
+        <tr>
+          <td class="detail">Impuesto 18%:</td>
+          <td class="detail1">L<span id="isv18"></span></td>
+        </tr>
+        <tr>
+          <td class="detail">Total venta:</td>
+          <td class="detail1">L<span id="total"></span></td>
+        </tr>
+        <tr>
+          <td class="detail">Recibido:</td>
+          <td class="detail1">L<span id="recibido"></span></td>
+        </tr>
+        <tr>
+          <td class="detail">Cambio:</td>
+          <td class="detail1">L<span id="cambio"></span></td>
+        </tr>
+      </table>
+
+      <div align="center">------------------------------------------------</div>
+
+      <div id="montoLetras" style="text-align: center"></div>
+
+      <div align="center">------------------------------------------------</div>
+      <div align="center">Gracias por su preferencia!!</div>
+      <div align="center">Original: Cliente, Copia: Emisor</div>
+      <div align="center">------------------------------------------------</div>
+
+      <div style="text-align: center">
+        <img alt="Barcode Generator TEC-IT" id="barcode" />
+      </div>
+      <div align="center">------------------------------------------------</div>
+      <div
+        style="
+          padding-top: 8px;
+          text-align: center;
+          font-size: 15px;
+          font-family: Source Sans Pro, Arial, sans-serif;
+        "
+      >
+        <span>www.rmposhn.com</span><br />
+        <span>indime.hn@gmail.com</span><br />
+        <span>(+504) 9359-3126</span>
+      </div>
+    </div>
+
+    <script>
+      // Function to get URL parameters
+      function getUrlParameter(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+        var results = regex.exec(location.search);
+        return results === null
+          ? ""
+          : decodeURIComponent(results[1].replace(/\+/g, " "));
+      }
+
+      // Function to set text content of an element
+      function setTextContent(id, value) {
+        document.getElementById(id).textContent = value;
+      }
+
+      // Populate the receipt with data from URL parameters
+      setTextContent("empresa", getUrlParameter("empresa"));
+      setTextContent("razon", getUrlParameter("razon"));
+      setTextContent("rtn", getUrlParameter("rtn"));
+      setTextContent("direccion", getUrlParameter("direccion"));
+      setTextContent("telefono", getUrlParameter("telefono"));
+      setTextContent("email", getUrlParameter("email"));
+      setTextContent("tipodoc", getUrlParameter("tipodoc"));
+      setTextContent("factura", getUrlParameter("factura"));
+      setTextContent("date", getUrlParameter("date"));
+      setTextContent("cai", getUrlParameter("cai"));
+      setTextContent("rango", getUrlParameter("rango"));
+      setTextContent("limite", getUrlParameter("limite"));
+      setTextContent("cliente", getUrlParameter("cliente"));
+      setTextContent("rtncliente", getUrlParameter("rtncliente"));
+      setTextContent("direccioncliente", getUrlParameter("direccioncliente"));
+      setTextContent("telefonocliente", getUrlParameter("telefonocliente"));
+      setTextContent("formapago", getUrlParameter("formapago"));
+      setTextContent("plazo", getUrlParameter("plazo"));
+      setTextContent("pagos", getUrlParameter("pagos"));
+      setTextContent("cuota", getUrlParameter("cuota"));
+      setTextContent("ocexe", getUrlParameter("ocexe"));
+      setTextContent("ocexo", getUrlParameter("ocexo"));
+      setTextContent("nosag", getUrlParameter("nosag"));
+      setTextContent("subtotal", getUrlParameter("subtotal"));
+      setTextContent("descuento", getUrlParameter("descuento"));
+      setTextContent("subtotalexe", getUrlParameter("subtotalexe"));
+      setTextContent("subtotalexo", getUrlParameter("subtotalexo"));
+      setTextContent("subtotalisv15", getUrlParameter("subtotalisv15"));
+      setTextContent("subtotalisv18", getUrlParameter("subtotalisv18"));
+      setTextContent("isv15", getUrlParameter("isv15"));
+      setTextContent("isv18", getUrlParameter("isv18"));
+      setTextContent("total", getUrlParameter("total"));
+      setTextContent("recibido", getUrlParameter("recibido"));
+      setTextContent("cambio", getUrlParameter("cambio"));
+
+      // Populate product table
+      var descriptions = getUrlParameter("descriptions").split(",");
+      var quantitys = getUrlParameter("quantitys").split(",");
+      var prices = getUrlParameter("price").split(",");
+      var descproductos = getUrlParameter("descproducto").split(",");
+      var isvproductos = getUrlParameter("isvproducto").split(",");
+      var amounts = getUrlParameter("amounts").split(",");
+
+      var productTable = document.getElementById("productTable");
+      for (var i = 0; i < descriptions.length; i++) {
+        // Create a new row for the description
+        var descriptionRow = productTable.insertRow();
+        descriptionRow.innerHTML = `
+        <td colspan="5" class="descriptions">${descriptions[i]}</td>
+    `;
+
+        // Create a new row for the other details
+        var detailsRow = productTable.insertRow();
+        detailsRow.innerHTML = `
+        <td class="qty">${quantitys[i]}</td>
+        <td class="Price">${prices[i]}</td>
+        <td class="Desc">${descproductos[i]}</td>
+        <td class="Isv">${isvproductos[i]}</td>
+        <td class="Amount">${amounts[i]}</td>
+    `;
+
+        // Add a class to the details row for styling
+        detailsRow.className = "listitem";
+      }
+
+      document.getElementById("barcode").src =
+        "https://barcode.tec-it.com/barcode.ashx?data=" +
+        getUrlParameter("Folio_1");
+
+      // Function to convert number to words (Spanish)
+      function numeroALetras(numero) {
+        const unidades = [
+          "",
+          "UN",
+          "DOS",
+          "TRES",
+          "CUATRO",
+          "CINCO",
+          "SEIS",
+          "SIETE",
+          "OCHO",
+          "NUEVE",
+          "DIEZ",
+          "ONCE",
+          "DOCE",
+          "TRECE",
+          "CATORCE",
+          "QUINCE",
+          "DIECISEIS",
+          "DIECISIETE",
+          "DIECIOCHO",
+          "DIECINUEVE",
+        ];
+        const decenas = [
+          "",
+          "",
+          "VEINTE",
+          "TREINTA",
+          "CUARENTA",
+          "CINCUENTA",
+          "SESENTA",
+          "SETENTA",
+          "OCHENTA",
+          "NOVENTA",
+        ];
+        const centenas = [
+          "",
+          "CIENTO",
+          "DOSCIENTOS",
+          "TRESCIENTOS",
+          "CUATROCIENTOS",
+          "QUINIENTOS",
+          "SEISCIENTOS",
+          "SETECIENTOS",
+          "OCHOCIENTOS",
+          "NOVECIENTOS",
+        ];
+
+        function convertirGrupo(n) {
+          let resultado = "";
+
+          if (n === 100) {
+            return "CIEN";
+          }
+
+          if (n >= 100) {
+            resultado += centenas[Math.floor(n / 100)] + " ";
+            n %= 100;
+          }
+
+          if (n >= 20) {
+            resultado += decenas[Math.floor(n / 10)];
+            if (n % 10 !== 0) {
+              resultado += " Y " + unidades[n % 10];
+            }
+          } else if (n > 0) {
+            resultado += unidades[n];
+          }
+
+          return resultado.trim();
+        }
+
+        function convertirMiles(n) {
+          if (n === 0) return "";
+          if (n === 1) return "MIL";
+          return convertirGrupo(n) + " MIL";
+        }
+
+        function convertirMillones(n) {
+          if (n === 0) return "";
+          if (n === 1) return "UN MILLON";
+          return convertirGrupo(n) + " MILLONES";
+        }
+
+        if (numero === 0) return "CERO LEMPIRAS";
+
+        let resultado = "";
+        let esNegativo = numero < 0;
+        numero = Math.abs(numero);
+
+        let millones = Math.floor(numero / 1000000);
+        let miles = Math.floor((numero % 1000000) / 1000);
+        let resto = numero % 1000;
+
+        if (millones > 0) {
+          resultado += convertirMillones(millones) + " ";
+        }
+
+        if (miles > 0) {
+          resultado += convertirMiles(miles) + " ";
+        }
+
+        if (resto > 0 || resultado === "") {
+          resultado += convertirGrupo(resto);
+        }
+
+        resultado = resultado.trim();
+        if (esNegativo) {
+          resultado = "MENOS " + resultado;
+        }
+
+        // Agregar 'LEMPIRAS' o 'LEMPIRA' según corresponda
+        resultado += numero === 1 ? " LEMPIRA" : " LEMPIRAS";
+
+        return resultado;
+      }
+
+      // Set monto en letras
+      var total = parseFloat(getUrlParameter("total"));
+      document.getElementById("montoLetras").textContent =
+        "SON " + numeroALetras(total);
+
+      // Trigger print when the page loads
+      window.onload = function () {
+        window.print();
+      };
+    </script>
+  </body>
+</html>
