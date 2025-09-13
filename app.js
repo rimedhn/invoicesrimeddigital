@@ -5,9 +5,9 @@ const URL_FACTURA = "https://opensheet.elk.sh/1q9z92BMUAxjsiO5AnACeur6wJhVpfIUkq
 const URL_VENTAS = "https://opensheet.elk.sh/1q9z92BMUAxjsiO5AnACeur6wJhVpfIUkqT62erIUUOA/Ventas";
 
 // URLs Apps Script (debes reemplazar por las tuyas)
-const URL_APPSCRIPT_CLIENTE = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
-const URL_APPSCRIPT_VENTA = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
-const URL_APPSCRIPT_VENTA_DETALLE = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
+const URL_APPSCRIPT_CLIENTE = "https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbwZ3jfUvN1zYwGpCnnOEtltrlhNN3tcxebm3Nv9J3-Y_AtCsQ_3RNMzn4KhsQ6y3hAo/exec";
+const URL_APPSCRIPT_VENTA = "https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbwZ3jfUvN1zYwGpCnnOEtltrlhNN3tcxebm3Nv9J3-Y_AtCsQ_3RNMzn4KhsQ6y3hAo/exec";
+const URL_APPSCRIPT_VENTA_DETALLE = "https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbwZ3jfUvN1zYwGpCnnOEtltrlhNN3tcxebm3Nv9J3-Y_AtCsQ_3RNMzn4KhsQ6y3hAo/exec";
 
 // URL formato factura (redirecciona con ?no_venta=ID)
 const URL_FACTURA_FORMATO = "https://rimedhn.github.io/inversionesrdb/factura.html";
@@ -133,7 +133,7 @@ document.getElementById('save-new-client').onclick = async () => {
   const telefono = document.getElementById('new-client-telefono').value.trim();
   if (!nombre || !telefono) return alert("Nombre y teléfono obligatorios.");
   const idUnico = generarIdUnico();
-  await fetch('https://script.google.com/macros/s/AKfycbwZ3jfUvN1zYwGpCnnOEtltrlhNN3tcxebm3Nv9J3-Y_AtCsQ_3RNMzn4KhsQ6y3hAo/exec', {
+  await fetch(URL_APPSCRIPT_CLIENTE, {
     method: 'POST',
     body: JSON.stringify({
       TipoRegistro: 'Cliente',
@@ -250,7 +250,7 @@ document.getElementById('confirm-sale').onclick = async () => {
       TipoDescuento: 'Tipo descuento',
       EstadoCarrito: 'Estado carrito'
     };
-    await fetch('https://script.google.com/macros/s/AKfycbwZ3jfUvN1zYwGpCnnOEtltrlhNN3tcxebm3Nv9J3-Y_AtCsQ_3RNMzn4KhsQ6y3hAo/exec', {
+    await fetch(URL_APPSCRIPT_VENTA_DETALLE, {
       method: 'POST',
       body: JSON.stringify(detalle)
     });
