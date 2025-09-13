@@ -1,8 +1,8 @@
 // URLs Opensheet por hoja
-const URL_ARTICULOS = "https://opensheet.elk.sh/ID_GOOGLE_DOC_ARTICULOS/Articulos";
-const URL_CLIENTES = "https://opensheet.elk.sh/ID_GOOGLE_DOC_CLIENTES/Clientes";
-const URL_FACTURA = "https://opensheet.elk.sh/ID_GOOGLE_DOC_GENERAL/Factura";
-const URL_VENTAS = "https://opensheet.elk.sh/ID_GOOGLE_DOC_GENERAL/Ventas";
+const URL_ARTICULOS = "https://opensheet.elk.sh/1IAD2MyZz8DMvVJlsQq4AgNRIUGhdqwPHVJolVYDVOH4/Articulos";
+const URL_CLIENTES = "https://opensheet.elk.sh/1CddpnxmFgUUY-dM57Mw0TkUAJLpRdZJwtJVzn-Gc-Pw/Clientes";
+const URL_FACTURA = "https://opensheet.elk.sh/1q9z92BMUAxjsiO5AnACeur6wJhVpfIUkqT62erIUUOA/Factura";
+const URL_VENTAS = "https://opensheet.elk.sh/1q9z92BMUAxjsiO5AnACeur6wJhVpfIUkqT62erIUUOA/Ventas";
 
 // Estado de carrito, cliente y venta
 let carrito = [];
@@ -120,7 +120,7 @@ document.getElementById('save-new-client').onclick = async () => {
   const telefono = document.getElementById('new-client-telefono').value;
   const idUnico = generarIdUnico();
   // Envío a Apps Script (implementa endpoint en backend.gs)
-  await fetch('URL_APPSCRIPT_CLIENTE', {
+  await fetch('https://script.google.com/macros/s/AKfycbwZ3jfUvN1zYwGpCnnOEtltrlhNN3tcxebm3Nv9J3-Y_AtCsQ_3RNMzn4KhsQ6y3hAo/exec', {
     method: 'POST',
     body: JSON.stringify({
       Codigo: idUnico,
@@ -203,7 +203,7 @@ document.getElementById('confirm-sale').onclick = async () => {
     cajacai: caja // Nuevo campo
   };
   // Enviar venta
-  await fetch('URL_APPSCRIPT_VENTA', {
+  await fetch('https://script.google.com/macros/s/AKfycbwZ3jfUvN1zYwGpCnnOEtltrlhNN3tcxebm3Nv9J3-Y_AtCsQ_3RNMzn4KhsQ6y3hAo/exec', {
     method: 'POST',
     body: JSON.stringify(venta)
   });
@@ -230,7 +230,7 @@ document.getElementById('confirm-sale').onclick = async () => {
       TipoDescuento: 'Tipo descuento',
       EstadoCarrito: 'Estado carrito'
     };
-    await fetch('URL_APPSCRIPT_VENTA_DETALLE', {
+    await fetch('https://script.google.com/macros/s/AKfycbwZ3jfUvN1zYwGpCnnOEtltrlhNN3tcxebm3Nv9J3-Y_AtCsQ_3RNMzn4KhsQ6y3hAo/exec', {
       method: 'POST',
       body: JSON.stringify(detalle)
     });
