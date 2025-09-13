@@ -5,9 +5,9 @@ const URL_FACTURA = "https://opensheet.elk.sh/1q9z92BMUAxjsiO5AnACeur6wJhVpfIUkq
 const URL_VENTAS = "https://opensheet.elk.sh/1q9z92BMUAxjsiO5AnACeur6wJhVpfIUkqT62erIUUOA/Ventas";
 
 // URLs Apps Script (debes reemplazar por las tuyas)
-const URL_APPSCRIPT_CLIENTE = "https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbwZ3jfUvN1zYwGpCnnOEtltrlhNN3tcxebm3Nv9J3-Y_AtCsQ_3RNMzn4KhsQ6y3hAo/exec";
-const URL_APPSCRIPT_VENTA = "https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbwZ3jfUvN1zYwGpCnnOEtltrlhNN3tcxebm3Nv9J3-Y_AtCsQ_3RNMzn4KhsQ6y3hAo/exec";
-const URL_APPSCRIPT_VENTA_DETALLE = "https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbwZ3jfUvN1zYwGpCnnOEtltrlhNN3tcxebm3Nv9J3-Y_AtCsQ_3RNMzn4KhsQ6y3hAo/exec";
+const URL_APPSCRIPT_CLIENTE = "https://script.google.com/macros/s/AKfycbwZ3jfUvN1zYwGpCnnOEtltrlhNN3tcxebm3Nv9J3-Y_AtCsQ_3RNMzn4KhsQ6y3hAo/exec";
+const URL_APPSCRIPT_VENTA = "https://script.google.com/macros/s/AKfycbwZ3jfUvN1zYwGpCnnOEtltrlhNN3tcxebm3Nv9J3-Y_AtCsQ_3RNMzn4KhsQ6y3hAo/exec";
+const URL_APPSCRIPT_VENTA_DETALLE = "https://script.google.com/macros/s/AKfycbwZ3jfUvN1zYwGpCnnOEtltrlhNN3tcxebm3Nv9J3-Y_AtCsQ_3RNMzn4KhsQ6y3hAo/exec";
 
 // URL formato factura (redirecciona con ?no_venta=ID)
 const URL_FACTURA_FORMATO = "https://rimedhn.github.io/inversionesrdb/factura.html";
